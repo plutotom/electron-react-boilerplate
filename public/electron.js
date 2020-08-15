@@ -4,7 +4,7 @@ const isDev = require("electron-is-dev");
 // require("dotenv").config();
 
 require("backend");
-
+console.log("starting electron");
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({

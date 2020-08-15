@@ -4,7 +4,6 @@
   "description": "Life Chronos is made to track what you spend your time on though out the day",
   "version": "0.1.24",
   "private": true,
-  "homepage": "http://localhost:3000/internalHomePage",
   "author": "Isaiah proctor",
   "license": "MIT",
   "scripts": {
