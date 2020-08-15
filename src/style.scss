@@ -1,0 +1,8 @@
+$color: (
+    //  some of this is from beteral ui theme is one of thoeses
+      prim: "#282828"
+  ),
+  root
+    (
+      backgroundColor: map-get($colors, prim) color: black,
+    );

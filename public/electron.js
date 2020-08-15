@@ -1,12 +1,15 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
+// require("dotenv").config();
+
+require("backend");
 
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1920,
+    height: 1080,
     webPreferences: {
       nodeIntegration: true,
     },
