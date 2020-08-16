@@ -6,6 +6,14 @@ import interactionPlugin from "@fullcalendar/interaction";
 import momentPlugin from "@fullcalendar/moment";
 import { toMoment, toMomentDuration } from "@fullcalendar/moment";
 
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 import moment from "moment";
 import { POSTData, DELETEData, PUTData } from "../utiles/PointAPI";
 import useGlobal from "../GlobleState/store";
@@ -22,7 +30,21 @@ export default function EntreyInput() {
   const [weekendsVisible, setWeekendsVisible] = React.useState(false);
   const [currentEvents, setCurrentEvents] = React.useState([]);
   const [events, setEvents] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [inputValue, setInputValue] = React.useState("null");
+  const [selectInfo, setselectInfo] = React.useState();
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleSubmit = (value) => {
+    addNewEvent();
+    setOpen(false);
+  };
+  const handleClose = (value) => {
+    console.log(value);
+    setOpen(false);
+  };
   useEffect(() => {
     reGettingNewState();
   }, [globalState.entrys]);
@@ -36,7 +58,6 @@ export default function EntreyInput() {
       );
 
     const replaceMap = { event_start: "start", event_end: "end", _id: "id" };
-    console.log(globalState.entrys);
     const calendarEntrys = replaceKeyInObjectArray(
       globalState.entrys,
       replaceMap
@@ -50,12 +71,13 @@ export default function EntreyInput() {
     setEvents({ events: calendarEntrys });
     console.log("running calender set up");
   };
-
-  const handleCreateNewEntry = async (selectInfo) => {
-    let name = prompt("Please enter a new title for your event");
+  const addNewEvent = async () => {
+    console.log(inputValue);
+    let name = inputValue;
+    console.log(selectInfo.view);
+    console.log("running addNewEvent");
     let calendarApi = selectInfo.view.calendar;
     calendarApi.unselect(); // clear date selection
-    console.log(selectInfo.start);
     if (name) {
       let duration =
         moment(selectInfo.end).diff(moment(selectInfo.start), "hours") +
@@ -69,7 +91,7 @@ export default function EntreyInput() {
 
       //settings the duration === to the sum of the event_start and event_end
 
-      console.log(moment(selectInfo.start).format("MM/DD/YYYY hh:mm a"));
+      // console.log(moment(selectInfo.start).format("MM/DD/YYYY hh:mm a"));
       const obj = {
         title: name,
         event_start: moment(selectInfo.start).format("MM/D/YYYY hh:mm a"),
@@ -84,10 +106,16 @@ export default function EntreyInput() {
           start: moment(selectInfo.end).format("MM/D/YYYY hh:mm a"),
           end: moment(selectInfo.end).format("MM/D/YYYY hh:mm a"),
         });
+        console.log("just posted");
       });
     }
     //todo append to state
     reGettingNewState();
+  };
+
+  const handleCreateNewEntry = async (calendarVlaue) => {
+    setselectInfo(calendarVlaue);
+    handleClickOpen();
   };
 
   const handleEventClick = (clickInfo) => {
@@ -111,6 +139,38 @@ export default function EntreyInput() {
 
   return (
     <div className="demo-app">
+      <div className="Dialog-prompt">
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Enter Title</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Put a name to what you have been doing.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="eventTitle"
+              label="Title Event"
+              fullWidth
+              onChange={(e) => {
+                setInputValue(e.target.value);
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleSubmit} color="primary">
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
       {/* {this.renderSidebar()} */}
       <div className="demo-app-main">
         <FullCalendar
@@ -140,7 +200,7 @@ export default function EntreyInput() {
           eventClick={handleEventClick}
           eventsSet={updatesState} // called after events are initialized/added/changed/removed
           //  you can update a remote database when these fire:
-          titleFormat={moment().format("")}
+          titleFormat={moment().format("MM/D/YYYY")}
           eventAdd={function () {
             console.log("event added");
           }}
