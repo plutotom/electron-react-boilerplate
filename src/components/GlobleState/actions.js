@@ -33,3 +33,24 @@ export const setUpdateEntryState = (store, newValue) => {
 
   store.setState((store.state.entrys = finalObj));
 };
+
+export const calendarApendEntry = (store, newValue) => {
+  console.log("running calendarApendEntry", newValue);
+
+  var temp = store.state.entrys;
+  temp.push(newValue);
+  console.log(typeof temp);
+  store.setState((store.state.entrys = temp));
+};
+
+export const calendarDeleteEntry = (store, id) => {
+  let temp = store.state.entrys;
+
+  store.state.entrys.map((elm, i, y) => {
+    if (elm._id === id) {
+      temp.splice(i);
+    }
+  });
+  console.log(temp);
+  store.setState((store.state.entrys = temp));
+};

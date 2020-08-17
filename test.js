@@ -72,18 +72,42 @@
 
 let obj = [
   {
+    event_start: "name  ",
+    event_end: "223488844",
+    id: "0",
+  },
+  {
     event_start: "fds",
     event_end: "4792332377",
-    id: "0",
+    id: "1",
   },
   {
     event_start: "name  ",
     event_end: "223488844",
     id: "2",
   },
+  {
+    event_start: "name  ",
+    event_end: "223488844",
+    id: "3",
+  },
+  {
+    event_start: "name  ",
+    event_end: "223488844",
+    id: "4",
+  },
 ];
 
+const id = "3";
+
 obj.map((elm, i, y) => {
-  elm.event_start = `${elm.event_start} STOPPP`;
+  if (elm.id === id) {
+    // obj[i].pop;
+    obj.splice(i, 1);
+    console.log(obj, "log in side");
+  } else {
+    console.log("no entry with that id found");
+  }
 });
-console.log(obj);
+
+console.log(obj, "last log");

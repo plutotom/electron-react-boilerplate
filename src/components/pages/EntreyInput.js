@@ -27,7 +27,7 @@ import "./PagesCss/styles.css";
 
 export default function EntreyInput() {
   const [globalState, globalActions] = useGlobal();
-  const [weekendsVisible, setWeekendsVisible] = React.useState(false);
+  const [weekendsVisible, setWeekendsVisible] = React.useState(true);
   const [currentEvents, setCurrentEvents] = React.useState([]);
   const [events, setEvents] = React.useState([]);
   const [open, setOpen] = React.useState(false);
@@ -89,10 +89,7 @@ export default function EntreyInput() {
       duration.split(":")[0] < 10 && (duration = "0" + duration);
       duration.split(":")[1] < 10 && (duration = duration + "0");
 
-      //settings the duration === to the sum of the event_start and event_end
-
-      // console.log(moment(selectInfo.start).format("MM/DD/YYYY hh:mm a"));
-      const obj = {
+      let obj = {
         title: name,
         event_start: moment(selectInfo.start).format("MM/D/YYYY hh:mm a"),
         event_duration: duration,
@@ -106,10 +103,12 @@ export default function EntreyInput() {
           start: moment(selectInfo.end).format("MM/D/YYYY hh:mm a"),
           end: moment(selectInfo.end).format("MM/D/YYYY hh:mm a"),
         });
+        obj._id = res._id;
         console.log("just posted");
       });
+      globalActions.calendarApendEntry(obj);
     }
-    //todo append to state
+    //todo append to
     reGettingNewState();
   };
 
@@ -126,6 +125,7 @@ export default function EntreyInput() {
     ) {
       clickInfo.event.remove();
       DELETEData(clickInfo.event.id);
+      globalActions.calendarDeleteEntry(clickInfo.event.id);
       // todo update state, delete item from state
       reGettingNewState();
     }
@@ -192,8 +192,6 @@ export default function EntreyInput() {
           dayMaxEvents={true}
           weekends={weekendsVisible}
           events={events}
-          // formatDate={"MM/D/YYYY hh:mm a"}
-          // timeFormat={moment().format("hh:mm a")}
           // initialEvents={currentEvents} // alternatively, use the `events` setting to fetch from a feed
           select={handleCreateNewEntry}
           eventContent={renderEventContent} // custom render function
