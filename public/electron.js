@@ -17,7 +17,7 @@ function createWindow() {
 
   // and load the index.html of the app.
   //   win.loadFile("index.html");
-  //if the app is running in dev mode then it will run at port 3000,
+  // if the app is running in dev mode then it will run at port 3000,
   //   else it will run from the build file that has its own settings
   win.loadURL(
     isDev

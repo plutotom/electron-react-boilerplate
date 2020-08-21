@@ -6,6 +6,11 @@
   "private": true,
   "author": "Isaiah proctor",
   "license": "MIT",
+  "homepage": "./",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plutotom/ChronoLife"
+  },
   "scripts": {
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
