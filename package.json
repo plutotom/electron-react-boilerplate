@@ -54,7 +54,7 @@
     "material-table": "^1.64.0",
     "moment": "^2.27.0",
     "mongoose": "5.9.21",
-    "node-notifier": "^7.0.1",
+    "node-notifier": "^8.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
