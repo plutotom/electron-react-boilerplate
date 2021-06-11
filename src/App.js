@@ -1,20 +1,9 @@
-import React, { Component, Fragment } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/core/styles";
-import styles from "./styles";
-import HomePage from "./components/pages/HomePage";
-import MiniDrawer from "./components/SidBarNav/MiniDrawerSide";
-// import "/style.sass";
+import React, { Component } from "react";
+
 class App extends Component {
   render() {
-    const { classes } = this.props;
-    return (
-      <div className={classes.sideBarClosed}>
-        <MiniDrawer />
-        <HomePage />
-      </div>
-    );
+    return <h1>Hello world</h1>;
   }
 }
 
-export default withAuth0(withStyles(styles)(App));
+export default App;
