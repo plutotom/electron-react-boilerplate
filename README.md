@@ -1,4 +1,1 @@
-Clone this then
-
-1. run "npm install"
-2. run "npm start"
+This is only a template for creating Apps with Electron and React.js
